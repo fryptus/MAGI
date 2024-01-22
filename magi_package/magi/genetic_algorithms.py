@@ -23,8 +23,8 @@ class GA(object):
 
         # init the population
         self.chrom = np.array([0] * self.size_pop * self.num).reshape(self.size_pop,
-                                                                      self.num)  # 父 print(chrom.shape)(200, 14)
-        self.sub_sel = np.array([0] * int(self.select_num) * self.num).reshape(self.select_num, self.num)  # 子 (160, 14)
+                                                                      self.num)
+        self.sub_sel = np.array([0] * int(self.select_num) * self.num).reshape(self.select_num, self.num)
 
         self.fitness = np.zeros(self.size_pop)
 
@@ -36,7 +36,7 @@ class GA(object):
         res = np.zeros((self.num, self.num))
         for i in range(self.num):
             for j in range(i + 1, self.num):
-                res[i, j] = np.linalg.norm(self.data[i, :] - self.data[j, :])  # 求二阶范数 就是距离公式
+                res[i, j] = np.linalg.norm(self.data[i, :] - self.data[j, :])
                 res[j, i] = res[i, j]
         return res
 
@@ -77,11 +77,11 @@ class GA(object):
                 j += 1
             else:
                 i += 1
-        self.sub_sel = self.chrom[index, :]  # chrom 父
+        self.sub_sel = self.chrom[index, :]
 
     # crossover
     def cross_sub(self):
-        if self.select_num % 2 == 0:  # select_num160
+        if self.select_num % 2 == 0:
             num = range(0, int(self.select_num), 2)
         else:
             num = range(0, int(self.select_num - 1), 2)
@@ -92,7 +92,7 @@ class GA(object):
     def intercross(self, ind_a, ind_b):
         r1 = np.random.randint(self.num)
         r2 = np.random.randint(self.num)
-        while r2 == r1:  # 如果r1==r2
+        while r2 == r1:
             r2 = np.random.randint(self.num)
         left, right = min(r1, r2), max(r1, r2)
         ind_a1 = ind_a.copy()
